@@ -11,8 +11,14 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+    const product = {
+        //this will check from the request body
+        name: req.body.name, //now this 'name' is as per we want the api user to send the requests and this should be there in the documentation
+        price: req.body.price
+    };
     res.status(201).json({
-        message:'POST request to /products is working'
+        message:'POST request to /products is working',
+        createdProduct: product
     });
 });
 

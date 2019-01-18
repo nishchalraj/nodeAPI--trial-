@@ -3,6 +3,7 @@
 const express = require('express');
 const app = express(); //this helps us to use the utilities that express provides
 const morgan = require('morgan');
+const bodyParser = require('body-parser'); //body parser
 
 //tells where the main router files are
 const productRoutes = require('./api/routes/products');
@@ -10,6 +11,20 @@ const orderRoutes = require('./api/routes/orders');
 
 //works as a middle-ware
 app.use(morgan('dev')); //this will log everything before reaching for the main routes through morgan installed as depedencies
+app.use(bodyParser.urlencoded({extended: false})); //parser middle ware and it will parse urlencoded body
+app.use(bodyParser.json()); //json type body-parser middle ware
+app.use((req, res, next) => {
+    //for the response header in the response
+    res.header("Access-Control-Allow-Origin", "*"); //star shows that access is given to any origin of the request
+    res.header("Access-Control-Allow-Header",
+    "Origin,X-Requested-With, Content-Type, Authorization");
+    if(req.method === 'OPTIONS')//'method' is for the http methods we have used
+    {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET'); //those methods which you want to support through the API
+        res.status(200).json({});
+    }
+    next(); //this will not block the request in the middle ware and hence will pass the requests to the specific routers
+});
 /*
 app.use((req, res, next) => {
     //use res to send a response with status and json response
@@ -19,7 +34,8 @@ app.use((req, res, next) => {
     });
 });
 */
-//sends the request coming for specifi file to the specific router file
+//sends the request coming for specific file to the specific router file
+//routes which should handle requests
 app.use('/products', productRoutes);
 //now the same forwading for orders
 app.use('/orders', orderRoutes);
