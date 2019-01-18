@@ -4,7 +4,8 @@ const express = require('express');
 const app = express(); //this helps us to use the utilities that express provides
 
 //tells where the main router files are
-const productRoutes = require('./api/routes/products'); 
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
 
 //works as a middle-ware
 /*
@@ -17,6 +18,8 @@ app.use((req, res, next) => {
 });
 */
 //sends the request coming for specifi file to the specific router file
-app.use('/products',productRoutes);
+app.use('/products', productRoutes);
+//now the same forwading for orders
+app.use('/orders', orderRoutes);
 
 module.exports = app;

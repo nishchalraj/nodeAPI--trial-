@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-    res.status(200).json({
+    res.status(201).json({
         message:'POST request to /products is working'
     });
 });
@@ -29,6 +29,24 @@ router.get('/:productId',(req, res, next) => {
         res.status(200).json({
             message:'There was some error'
         });
+});
+
+router.patch('/:productId', (req, res, next) => {
+    res.status(200).json({
+        message:'UPDATED the id'
+    });
+    //if you want to send another response in the same method, you can do it here as below, but you need to use 'return' for the first one
+    /* 
+     res.status(400).json({
+        message: 'another response in patch request'
+     }); 
+    */
+});
+
+router.delete('/:productId', (req, res, next) => {
+    res.status(200).json({
+        message:'DELETEd the id'
+    });
 });
 
 //helps to export the particular file(here: router) and this can be used now in other files after importing
