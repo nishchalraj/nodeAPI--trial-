@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 //import the model files for the products
 const Product = require('../models/product');
 
+const checkAuth = require('../middleware/check-auth');
+
 //now we use the router to register different routes with different HTTP methods
 router.get('/', (req, res, next) => {
     Product.find(/**nothing means, all here */)
@@ -43,7 +45,7 @@ router.get('/', (req, res, next) => {
         }); 
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
     /* 
     const product = {
          //this will check from the request body
@@ -133,7 +135,7 @@ router.patch('/:productId', (req, res, next) => { //this method an only update t
 
 });
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId', checkAuth, (req, res, next) => {
 /*    res.status(200).json({
         message:'DELETEd the id'
     });
