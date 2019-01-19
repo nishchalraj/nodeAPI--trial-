@@ -4,10 +4,21 @@ const express = require('express');
 const app = express(); //this helps us to use the utilities that express provides
 const morgan = require('morgan');
 const bodyParser = require('body-parser'); //body parser
+const mongoose = require('mongoose'); //database
 
 //tells where the main router files are
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+//connect to database with the password in the environment variable
+mongoose.connect(
+'mongodb://admin:' + 
+   process.env.MONGO_ATLAS_PW + 
+    '@nodeapi--trial--shard-00-00-4h3kh.mongodb.net:27017,nodeapi--trial--shard-00-01-4h3kh.mongodb.net:27017,nodeapi--trial--shard-00-02-4h3kh.mongodb.net:27017/test?ssl=true&replicaSet=nodeAPI--trial--shard-0&authSource=admin&retryWrites=true',
+    {
+        useMongoClient: true
+    }
+);
 
 //works as a middle-ware
 app.use(morgan('dev')); //this will log everything before reaching for the main routes through morgan installed as depedencies
