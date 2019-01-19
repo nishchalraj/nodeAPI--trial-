@@ -9,6 +9,7 @@ const mongoose = require('mongoose'); //database
 //tells where the main router files are
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 //connect to database with the password in the environment variable
 mongoose.connect(
@@ -52,6 +53,8 @@ app.use((req, res, next) => {
 app.use('/products', productRoutes);
 //now the same forwading for orders
 app.use('/orders', orderRoutes);
+
+app.use('/user', userRoutes);
 
 //catch the errors that will not match the above routes
 app.use((req, res, next) => {
