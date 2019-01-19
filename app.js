@@ -20,6 +20,8 @@ mongoose.connect(
     }
 );
 
+mongoose.Promise = global.Promise;
+
 //works as a middle-ware
 app.use(morgan('dev')); //this will log everything before reaching for the main routes through morgan installed as depedencies
 app.use(bodyParser.urlencoded({extended: false})); //parser middle ware and it will parse urlencoded body

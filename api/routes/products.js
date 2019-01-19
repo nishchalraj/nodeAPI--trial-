@@ -11,11 +11,25 @@ const Product = require('../models/product');
 //now we use the router to register different routes with different HTTP methods
 router.get('/', (req, res, next) => {
     Product.find(/**nothing means, all here */)
+        .select('name price _id')
         .exec()
         .then(docs => {
-            console.log(docs);
+            const response = {
+                count: docs.length,
+                products: docs.map(doc => {
+                return {
+                        name: doc.name,
+                        price: doc.price,
+                        _id: doc._id,
+                        request:{
+                            type: 'GET',
+                            url: 'http://localhost:3000/products/doc._id' //give any proper url in the structure with the details
+                        }
+                    }
+                }) //this can be done everywhere
+            };
             // if (docs.length >=0){
-                res.status(200).json(docs);
+                res.status(200).json(response);
             // }
             // else {
             //     res.status(404).json({message: 'No entries found'});
