@@ -2,7 +2,7 @@
 
 const express = require('express');
 const app = express(); //this helps us to use the utilities that express provides
-const morgan = require('morgan');
+const morgan = require('morgan'); //for logging in the requests to the server
 const bodyParser = require('body-parser'); //body parser
 const mongoose = require('mongoose'); //database
 
